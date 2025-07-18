@@ -1,0 +1,89 @@
+@font-face {
+  font-family: "Avenir Bold";
+  src: url('/fonts/Avenir-Next-LT-Pro-Bold.otf') format('truetype');
+}
+
+@font-face {
+  font-family: "Avenir Italic";
+  src: url('/fonts/Avenir-Next-LT-Pro-It.otf') format('truetype');
+}
+
+@font-face {
+  font-family: "Avenir Regular";
+  src: url('/fonts/Avenir-Next-LT-Pro-Regular.otf') format('truetype');
+}
+
+@font-face {
+  font-family: "WorkSans Black";
+  src: url('/fonts/WorkSans-Black.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "WorkSans Bold";
+  src: url('/fonts/WorkSans-Bold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "WorkSans ExtraBold";
+  src: url('/fonts/WorkSans-ExtraBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "WorkSans ExtraLight";
+  src: url('/fonts/WorkSans-ExtraLight.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "WorkSans Light";
+  src: url('/fonts/WorkSans-Light.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "WorkSans Medium";
+  src: url('/fonts/WorkSans-Medium.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "WorkSans Regular";
+  src: url('/fonts/WorkSans-Regular.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "WorkSans SemiBold";
+  src: url('/fonts/WorkSans-SemiBold.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "WorkSans Thin";
+  src: url('/fonts/WorkSans-Thin.ttf') format('truetype');
+}
+
+@font-face {
+  font-family: "WorkSans Variable";
+  src: url('/fonts/WorkSans-Variable.ttf') format('truetype');
+}
+
+:root {
+    --avenir: "Avenir Regular", sans-serif;
+    --avenir-bold: "Avenir Bold", sans-serif;
+    --work-sans-regular: "WorkSans Regular", sans-serif;
+    --color-blue-text: #213F7D;
+    --color-grey-text: #545F7D;
+    --color-cyan-text: #39CDCC;
+    --color-white-text: #FFFFFF;
+    --color-input: #545f7d26;
+}
+
+*,*::before,*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: sans-serif;
+    font-optical-sizing: auto;
+    font-size: normal;
+    min-height: 100vh;
+    font-size: 16px;
+}
