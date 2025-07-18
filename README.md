@@ -12,4 +12,18 @@ Welcome to my solution to the Lendsqr Lender-as-a-Service Frontend Assessment. ð
 
 ### Getting Started
 
-To get started with this project, clone the repo.
+To get started with this project, clone the repo, then run:
+
+```cd lendsqr-fe-test```
+
+Inside the project, install dependencies with:
+
+```npm install```
+
+Then run in development using:
+
+```npm run dev```
+
+or for production:
+
+```npm run build```

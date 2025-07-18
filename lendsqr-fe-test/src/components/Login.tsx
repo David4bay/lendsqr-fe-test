@@ -17,7 +17,7 @@ function Login() {
         <>
             <section className="login">
                 <article className="login__article">
-                    <div className="login__article-wrapper">
+                    <header className="login__article-wrapper">
                         <div className="logo__container">
                             <img className="logo__container-favicon" src="/lendsqr_login_logo.png" alt="login aside logo" />
                             <strong className="logo__container-title">lendsqr</strong>
@@ -25,7 +25,7 @@ function Login() {
                         <div className="logo__container">
                             <img className="logo__container-image" src="/pablo-sign-in_1.png" alt="login aside image" width="100%" height="100%" />
                         </div>
-                    </div>
+                    </header>
                 </article>
                 <article className="login__article form__container">
                     <div className="form__container-greeting">
@@ -39,11 +39,11 @@ function Login() {
                     <form className="form__container-body form__body">
                         <div className="form__body-email">
                             <label htmlFor="email" className="email__label" aria-hidden hidden>email</label>
-                            <input className="user__input email" id="email" type="email" placeholder="Email" />
+                            <input className="user__input email" id="email" type="email" placeholder="Email" autoComplete="email" />
                         </div>
                         <div className="form__body-password">
                             <label htmlFor="Password" className="Password__label" aria-hidden hidden>password</label>
-                            <input className="user__input password" id="password" type={showPassword ? "text" : "password"} placeholder="Password" />
+                            <input className="user__input password" id="password" type={showPassword ? "text" : "password"} placeholder="Password" autoComplete="current-password" />
                             <button className="input__reveal" onClick={revealPassword} type="button">{showPassword ? "Hide" : "Show"}</button>
                         </div>
                         <div className="form__body-forgot-password">
