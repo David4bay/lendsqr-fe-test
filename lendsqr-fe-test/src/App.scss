@@ -230,7 +230,7 @@
     }
 }
 
-@media (max-width: 518px) {
+@media screen and (min-width: 100px) and (max-width: 518px) {
 
     .login {
         display: flex;
@@ -238,7 +238,12 @@
         width: 300px;
         margin: auto;
         min-height: 100vh;
-        padding-bottom: 107.67px;
+        // padding-bottom: 107.67px;
+    }
+
+    .logo__container:nth-child(1) {
+        margin-left: -100px;
+        padding-left: -100px;
     }
 
     .logo__container:nth-child(2) {
