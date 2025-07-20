@@ -126,6 +126,9 @@
 }
 
 .input__reveal {
+    display: flex;
+    justify-self: center;
+    align-items: center;
     position: absolute;
     right: 0;
     top: 0;
@@ -284,6 +287,13 @@
     width: 48px;
 }
 
+// main 
+
+.main {
+    display: flex;
+    flex-direction: row;
+}
+
 // Aside styles
 
 .sidebar {
@@ -302,6 +312,8 @@
     color: var(--color-blue-text);
     align-items: center;
     padding-left: 20px;
+    white-space: nowrap;
+    padding-right: 20px;
 }
 
 .switch__organizations-button {
@@ -423,8 +435,6 @@
 .logout__container-button {
     display: flex;
     text-align: left;
-    align-items: center;
-    padding-top: 10px;
     width: 100%;
     height: 100%;
     border: none;
@@ -438,6 +448,78 @@
     padding-left: 20px;
     color: var(--color-grey-text);
     font-weight: 400;
+}
+
+// dashboard user list section
+
+.userlist {
+    width: 100%;
+    min-height: 100%;
+    background-color: #a3a3a320;
+    padding: 55px;
+    overflow: visible;
+}
+
+.userlist__container {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.userlist__container-title {
+    text-transform: uppercase;
+    color: var(--color-grey-text);
+}
+
+.userlist__container-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.info__item {
+    display: flex;
+    flex-direction: column;
+    width: 240px;
+    height: 160px;
+    background-color: var(--color-white-text);
+    padding: 20px;
+    gap: 20px;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.info__item-image {
+    width: 40px;
+}
+
+.info__item-title {
+    text-transform: uppercase;
+    color: var(--color-grey-text);
+}
+
+.info__item-stat {
+    font-weight: 700;
+    font-size: 1.4rem;
+    color: var(--color-blue-text);
+}
+
+// userlist table heading - with filter
+
+.userlist__table-heading {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    margin-top: 20px;
+    background-color: var(--color-white-text);
+}
+
+.heading {
+    display: flex;
+    flex-direction: row;
+    padding: 20px;
 }
 
 @media screen and (min-width: 701px) and (max-width: 1399px) {

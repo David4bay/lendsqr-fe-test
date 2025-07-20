@@ -3,6 +3,7 @@ import { useAuth } from "../context/UserContext"
 import Nav from "./Nav"
 import Sidebar from "./Sidebar"
 import { Helmet } from "react-helmet"
+import UserList from "./UserList"
 
 interface UserProp {
     user: {
@@ -10,7 +11,6 @@ interface UserProp {
         key?: string | null
     }
 }
-
 function Dashboard() {
 
     const navigate = useNavigate()
@@ -31,10 +31,10 @@ function Dashboard() {
             </title>
         </Helmet>
         <Nav />
+        <main className="main">
         <Sidebar />
-        <section>
-            
-        </section>
+        <UserList />
+        </main>
         </>
     )
 }
