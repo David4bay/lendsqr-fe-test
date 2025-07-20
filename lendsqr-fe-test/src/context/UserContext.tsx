@@ -45,7 +45,7 @@ function UserContext({children}: UserContextProp) {
 export function useAuth() {
     const context = useContext(UserContextData)
     if (context === undefined) {
-        throw new Error("useAuth must be used within an AuthProivder")
+        return false
     }
     return context
 }

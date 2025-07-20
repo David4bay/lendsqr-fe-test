@@ -6,12 +6,10 @@ import "./App.scss"
 function App() {
   
   return (
-          <>
           <Routes>
             <Route path="/" element={<Login />} />
             <Route path="/user" element={<Dashboard />} />
           </Routes>
-          </>
   )
 }
 

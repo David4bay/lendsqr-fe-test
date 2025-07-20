@@ -1,6 +1,16 @@
-
+import type { SyntheticEvent } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
+
+    const navigate = useNavigate()
+
+    function handleLogout(e: SyntheticEvent) {
+        e.preventDefault()
+        localStorage.removeItem("loggedUser")
+        navigate("/")
+        return
+    }
 
     return (
         <aside className="sidebar">
@@ -162,7 +172,7 @@ export default function Sidebar() {
                     </li>
                 </ul>
                 <ul className="options">
-                    <button className="logout__container">
+                    <button onClick={handleLogout} className="logout__container">
                         <img src="/sign-out.png" alt="sign out logo" />
                         <span className="logout__container-button">
                             Logout

@@ -1,17 +1,92 @@
-import { useState, type SyntheticEvent } from "react"
+/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable prefer-const */
+import { useEffect, useState, type FormEvent, type SyntheticEvent } from "react"
+import { useNavigate } from "react-router-dom"
+import { useAuth } from "../context/UserContext"
+
+interface UserProp {
+    user: {
+        username?: string | null 
+        key?: string | null
+    }
+}
 
 function Login() {
 
-    const [showPassword, setShowPassword] = useState<boolean>(false)
+    const navigate = useNavigate()
 
+    const userLoggedStatus = useAuth() as UserProp
+
+    const [showPassword, setShowPassword] = useState<boolean>(false)
+    const [loading, setLoading] = useState(false)
+    const [error, setError] = useState(false)
+    
     function revealPassword(e: SyntheticEvent) {
         e.preventDefault()
         setShowPassword(!showPassword)
     }
+    
+    function handleUserLogin(e: FormEvent<HTMLFormElement>) {
+        e.preventDefault()
+        setLoading(true)
+        const formData = new FormData(e.currentTarget)
 
-    // function handleUserLogin(e: SyntheticEvent) {
-    //     e.preventDefault()
-    // }
+        const email = formData.get("email") as string 
+        const password = formData.get("password") as string 
+
+        if (!email || !password) {
+            return
+        }
+        
+        let loggedUser = localStorage.getItem("loggedUser")
+
+        if (loggedUser) {
+            setLoading(false)
+            navigate("/user")
+            return
+        }
+        
+        /* Note - The password is not sent to any servers and is for 
+        a simple project, so it's saved to localStorage
+        */
+       loggedUser = JSON.stringify({
+            user: { username: email, key: password }
+        })
+
+        localStorage.setItem("loggedUser", loggedUser)
+        setLoading(false)
+        setError(false)
+        navigate("/user")
+    }
+
+    if (userLoggedStatus.user) {
+        navigate("/user")
+        return
+    }
+
+    // raise error message if unable to sign in after 4 seconds
+    useEffect(() => {
+        let timeout
+        timeout = setTimeout(() => {
+            if (loading) {
+                setLoading(false)
+                setError(true)
+            }
+        }, 4000)
+        return () => clearTimeout(timeout)
+    }, [loading])
+
+    // hide error notice after 3 seconds
+    useEffect(() => {
+        let timeout
+        timeout = setTimeout(() => {
+            if (error) {
+                setError(false)
+                setLoading(false)
+            }
+        }, 3000)
+        return () => clearTimeout(timeout)
+    })
 
     return (
         <>
@@ -36,21 +111,21 @@ function Login() {
                             enter details to login.
                         </p>
                     </div>
-                    <form className="form__container-body form__body">
+                    <form onSubmit={handleUserLogin} className="form__container-body form__body">
                         <div className="form__body-email">
                             <label htmlFor="email" className="email__label" aria-hidden hidden>email</label>
-                            <input className="user__input email" id="email" type="email" placeholder="Email" autoComplete="email" />
+                            <input name="email" className="user__input email" id="email" type="email" placeholder="Email" autoComplete="email" />
                         </div>
                         <div className="form__body-password">
                             <label htmlFor="Password" className="Password__label" aria-hidden hidden>password</label>
-                            <input className="user__input password" id="password" type={showPassword ? "text" : "password"} placeholder="Password" autoComplete="current-password" />
+                            <input name="password" className="user__input password" id="password" type={showPassword ? "text" : "password"} placeholder="Password" autoComplete="current-password" />
                             <button className="input__reveal" onClick={revealPassword} type="button">{showPassword ? "Hide" : "Show"}</button>
                         </div>
                         <div className="form__body-forgot-password">
                             <a href="#" className="forgot-password">forgot password?</a>
                         </div>
                         <div className="form__body-login">
-                            <button className="login__button" type="button">log in</button>
+                            {error ? (<button className="login__button" type="submit">Error logging in</button>) : (<button className="login__button" type="submit">{loading ? "loading..." : "log in"}</button>)}
                         </div>
                     </form>
                 </article>

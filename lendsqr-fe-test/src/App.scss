@@ -167,6 +167,10 @@
     &:hover {
         cursor: pointer;
     }
+
+    &:active {
+        background-color: var(--color-cyan-fade);
+    }
 }
 
 // nav styles
@@ -438,6 +442,10 @@
 
 @media screen and (min-width: 701px) and (max-width: 1399px) {
 
+    .logo__container:first-child {
+        padding-bottom: 100px;
+    }
+
     .login {
         display: flex;
         max-width: 700px;        
@@ -473,6 +481,10 @@
 }
 
 @media screen and (min-width: 519px) and (max-width: 700px) {
+
+    .logo__container:first-child {
+        padding-bottom: 100px;
+    }
 
     .login {
         display: flex;
@@ -522,9 +534,13 @@
         // padding-bottom: 107.67px;
     }
 
+    .logo__container:first-child {
+        padding-bottom: 100px;
+    }
+
     .logo__container:nth-child(1) {
         margin-left: -100px;
-        padding-left: -100px;
+        // padding-left: -100px;
     }
 
     .logo__container:nth-child(2) {
