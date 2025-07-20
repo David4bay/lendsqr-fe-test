@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
+import { useLayoutEffect, useState } from "react"
 
 type StatusType = "inactive" | "pending" | "blacklisted" | "active"
 
@@ -50,12 +51,36 @@ interface UserListType {
 
 function UserList() {
 
-    const { data } = useQuery({
+    const [pages, setPages] = useState<number>(9)
+    const [remainingPages, setRemainingPages] = useState<number>(0)
+    const [users, setUsers] = useState<UserListType[] | null[]>([])
+    const [refresh, setRefresh] = useState(true)
+
+    const { data, isLoadingError, error, isLoading } = useQuery({
         queryKey: ["user_list"],
         queryFn: async () => await fetch("/generated.json").then((response) => response.json())
     })
 
     console.log("data", data as UserListType[])
+
+    useLayoutEffect(() => {
+        if (data?.length > 0 && !isLoading && !isLoadingError && !error && refresh) {
+            if (pages > data.length) {
+                setPages(data.length)
+            }
+            if (pages < 9) {
+                setPages(9)
+            }
+            const originalDataLength = data.length 
+            const pagesLeft = Math.floor((originalDataLength - pages) / pages)
+            setRemainingPages(pagesLeft)
+            data.length = pages
+            setUsers(data)
+            setRefresh(false)
+        }
+    }, [data, error, isLoading, isLoadingError, pages, refresh])
+
+    console.log("users", users)
 
     return (
         <section className="userlist">
@@ -143,6 +168,47 @@ function UserList() {
                         </button>
                     </div>
                 </div>
+                {users.length > 0 ? users.map((userlist: UserListType) => (
+                    <div className="userlist__table-data" key={userlist.non_zero_index}>
+                        <ul className="data__container">
+                            <li className="data__container-item">
+                                <span>{userlist.organization}</span>
+                            </li>
+                        </ul>
+                        <ul className="data__container">
+                            <li className="data__container-item">
+                                <span>{userlist.username}</span>
+                            </li>
+                        </ul>
+                        <ul className="data__container">
+                            <li className="data__container-item">
+                                <span>{userlist.email}</span>
+                            </li>
+                        </ul>
+                        <ul className="data__container">
+                            <li className="data__container-item">
+                                <span>{userlist.phone_number}</span>
+                            </li>
+                        </ul>
+                        <ul className="data__container">
+                            <li className="data__container-item">
+                                <span>{userlist.join_date}</span>
+                            </li>
+                        </ul>
+                        <ul className="data__container">
+                            <li className="data__container-item">
+                                <span>{userlist.status}</span>
+                            </li>
+                        </ul>
+                        <ul className="data__container">
+                            <li className="data__container-item">
+                                <button className="more__settings">
+                                    <img src="/more-icon.png" alt="more settings icon" />
+                                </button>
+                            </li>
+                        </ul>
+                    </div>
+                )) : ""}
             </article>
         </section>
     )
