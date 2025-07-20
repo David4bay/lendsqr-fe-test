@@ -1,5 +1,52 @@
 import { useQuery } from "@tanstack/react-query"
 
+type StatusType = "inactive" | "pending" | "blacklisted" | "active"
+
+interface EducationType {
+    level_of_education: string 
+    employment_status: string 
+    sector_of_employment: string 
+    duration_of_employment: string 
+    monthly_income: string 
+    loan_repayment: number
+}
+
+interface GuarantorType {
+    fullname: string 
+    phone_number: string 
+    email: string 
+    relationship: string
+}
+
+interface UserListType {
+    _id: string 
+    index: number 
+    non_zero_index: number 
+    tier: number 
+    bank: string 
+    bank_account: number 
+    organization: string 
+    firstname: string 
+    lastname: string 
+    username: string 
+    email: string 
+    phone_number: string 
+    join_date: string 
+    status: StatusType 
+    fullname: string 
+    bvn: string 
+    gender: string 
+    marital_status: string 
+    children: number 
+    type_of_residence: string 
+    education: EducationType[]
+    age: number 
+    facebook: string 
+    twitter: string 
+    instagram: string 
+    guarantor: GuarantorType[]
+}
+
 
 function UserList() {
 
@@ -8,7 +55,7 @@ function UserList() {
         queryFn: async () => await fetch("/generated.json").then((response) => response.json())
     })
 
-    console.log("data", data)
+    console.log("data", data as UserListType[])
 
     return (
         <section className="userlist">
@@ -53,35 +100,47 @@ function UserList() {
                         <h4 className="heading__title">
                             organizations
                         </h4>
-                        <img src="/filter-icon.png" alt="organization filter icon" className="heading__icon" />
+                        <button className="heading__filter-button">
+                            <img src="/filter-icon.png" alt="organization filter icon" className="heading__icon" />
+                        </button>
                     </div>
                     <div className="heading">
                         <h4 className="heading__title">
                             username
                         </h4>
-                        <img src="/filter-icon.png" alt="username filter icon" className="heading__icon" />
+                        <button className="heading__filter-button">
+                            <img src="/filter-icon.png" alt="username filter icon" className="heading__icon" />
+                        </button>
                     </div>
                     <div className="heading">
                         <h4 className="heading__title">email</h4>
-                        <img src="/filter-icon.png" alt="email filter icon" className="heading__icon" />
+                        <button className="heading__filter-button">
+                            <img src="/filter-icon.png" alt="email filter icon" className="heading__icon" />
+                        </button>
                     </div>
                     <div className="heading">
                         <h4 className="heading__title">
                             phone number
                         </h4>
-                        <img src="/filter-icon.png" alt="phone number filter icon" className="heading__icon" />
+                        <button className="heading__filter-button">
+                            <img src="/filter-icon.png" alt="phone number filter icon" className="heading__icon" />
+                        </button>
                     </div>
                     <div className="heading">
                         <h4 className="heading__title">
                             date joined
                         </h4>
-                        <img src="/filter-icon.png" alt="date joined filter icon" className="heading__icon" />
+                        <button className="heading__filter-button">
+                            <img src="/filter-icon.png" alt="date joined filter icon" className="heading__icon" />
+                        </button>
                     </div>
                     <div className="heading">
                         <h4 className="heading__title">
                             status
                         </h4>
-                        <img src="/filter-icon.png" alt="status filtere icon" className="heading__icon" />
+                        <button className="heading__filter-button">
+                            <img src="/filter-icon.png" alt="status filtere icon" className="heading__icon" />
+                        </button>
                     </div>
                 </div>
             </article>
