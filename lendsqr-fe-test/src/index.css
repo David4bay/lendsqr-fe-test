@@ -70,8 +70,10 @@
     --color-blue-text: #213F7D;
     --color-grey-text: #545F7D;
     --color-cyan-text: #39CDCC;
+    --color-cyan-fade: #39CDCCCC;
+    --color-cyan-dark: #1ab5b5;
     --color-white-text: #FFFFFF;
-    --color-input: #545f7d26;
+    --color-input: #545F7D;
 }
 
 *,*::before,*::after {
@@ -86,4 +88,15 @@ body {
     font-size: normal;
     min-height: 100vh;
     font-size: 16px;
+    width: 100%;
+}
+
+li {
+  list-style: none;
+}
+
+img {
+  display: flex;
+  align-items: flex-start;
+  object-fit: contain;
 }

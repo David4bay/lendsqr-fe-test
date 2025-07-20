@@ -1,18 +1,53 @@
-// /* eslint-disable react-refresh/only-export-components */
-// import React from "react";
-// import { createContext } from "react";
+ 
+/* eslint-disable react-refresh/only-export-components */
+import { createContext, useContext, useEffect, useState, type ReactNode} from "react"
 
-// export const userLoggedInStatus = createContext("")
+interface UserContextProp {
+    children: ReactNode
+}
 
-// interface Props {
-//     children: React.ReactNode
-// }
+interface UserContextDataProp {
+    username: string 
+    key: string
+}
 
-// export default function UserContext({ children }: Props) {
+interface UserProp {
+    user: UserContextDataProp | null
+}
 
-//     return (
-//         <React.Fragment>
-//             {children}
-//         </React.Fragment>
-//     )
-// }
+const UserContextData = createContext<UserProp | undefined>(undefined)
+
+function UserContext({children}: UserContextProp) {
+
+    const [user, setUser] = useState<UserProp | null>(null)
+
+    useEffect(() => {
+        const storedUser: UserProp | null | undefined | string = localStorage.getItem("loggedUser")
+        if (storedUser) {
+            try {
+                const parsedUser = JSON.parse(storedUser)
+                setUser(parsedUser)
+            } catch(error: unknown) {
+                console.error("Unable to get user: ", error)
+            }
+        }
+    }, [])
+
+    const loggedUser = { user } as UserProp
+
+    return (
+        <UserContextData.Provider value={loggedUser}>
+            {children}
+        </UserContextData.Provider>
+    )
+}
+
+export function useAuth() {
+    const context = useContext(UserContextData)
+    if (context === undefined) {
+        throw new Error("useAuth must be used within an AuthProivder")
+    }
+    return context
+}
+
+export default UserContext
