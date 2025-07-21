@@ -73,8 +73,8 @@ function UserList() {
                 setPages(9)
             }
             const originalDataLength = data.length 
-            const pagesLeft = Math.floor((originalDataLength - pages) / pages)
-            setRemainingPages(pagesLeft)
+            // const pagesLeft = (originalDataLength - pages)
+            setRemainingPages(data.length)
             data.length = pages
             setUsers(data)
             setRefresh(false)
@@ -85,42 +85,57 @@ function UserList() {
         return moment(date).format("LLL")
     }
 
-    console.log("users", users)
+    function statusStyle(status: string):string {
+        switch(true) {
+            case status === "inactive":
+                return "inactive"
+            case status === "active":
+                return "active"
+            case status === "blacklisted":
+                return "blacklisted"
+            case status === "pending":
+                return "pending"
+            default:
+                return ""
+        }
+    }
+
+    // console.log("users", users)
 
     return (
-        <section>
-            <article>
-                <h3>
+        <section className="userlist">
+            <article className="userlist__container">
+                <h3 className="userlist__container-title">
                     users
                 </h3>
-                <div>
-                    <div>
-                        <img src="/users-icon.png" alt="users icon" />
-                        <strong>
+                <div className="userlist__container-info">
+                    <div className="info__item">
+                        <img className="info__item-image" src="/users-icon.png" alt="users icon" />
+                        <strong className="info__item-title">
                             users
                         </strong>
-                        <p>2,453</p>
+                        <p className="info__item-stat">2,453</p>
                     </div>
-                    <div>
-                        <img src="/active-users-icon.png" alt="active users icon" />
-                        <strong>
+                    <div className="info__item">
+                        <img className="info__item-image" src="/active-users-icon.png" alt="active users icon" />
+                        <strong className="info__item-title">
                             active users
                         </strong>
-                        <p>2,453</p>
+                        <p className="info__item-stat">2,453</p>
                     </div>
-                    <div>
-                        <img src="/users-with-loans-icon.png" alt="users with loans icon" />
-                        <strong>
+                    <div className="info__item">
+                        <img className="info__item-image" src="/users-with-loans-icon.png" alt="users with loans icon" />
+                        <strong className="info__item-title">
                             users with loans
                         </strong>
-                        <p>12,453</p>
+                        <p className="info__item-stat">12,453</p>
                     </div>
-                    <div>
-                        <img src="/users-with-savings-icon.png" alt="users with savings icon" />
-                        <strong>
+                    <div className="info__item">
+                        <img className="info__item-image" src="/users-with-savings-icon.png" alt="users with savings icon" />
+                        <strong className="info__item-title">
                             users with savings
                         </strong>
-                        <p>102,453</p>
+                        <p className="info__item-stat">102,453</p>
                     </div>
                 </div>
             </article>
@@ -133,7 +148,7 @@ function UserList() {
                                     <h4>
                                         organizations
                                     </h4>
-                                    <button>
+                                    <button className="filter__button">
                                         <img src="/filter-icon.png" alt="organization filter icon" />
                                     </button>
                                 </div>
@@ -143,7 +158,7 @@ function UserList() {
                                     <h4>
                                         username
                                     </h4>
-                                    <button>
+                                    <button className="filter__button">
                                         <img src="/filter-icon.png" alt="username filter icon" />
                                     </button>
                                 </div>
@@ -153,7 +168,7 @@ function UserList() {
                                     <h4>
                                         email
                                     </h4>
-                                    <button>
+                                    <button className="filter__button">
                                         <img src="/filter-icon.png" alt="email filter icon" />
                                     </button>
                                 </div>
@@ -163,7 +178,7 @@ function UserList() {
                                     <h4>
                                         phone number
                                     </h4>
-                                    <button>
+                                    <button className="filter__button">
                                         <img src="/filter-icon.png" alt="phone number filter icon" />
                                     </button>
                                 </div>
@@ -173,7 +188,7 @@ function UserList() {
                                     <h4>
                                         date joined
                                     </h4>
-                                    <button>
+                                    <button className="filter__button">
                                         <img src="/filter-icon.png" alt="date joined filter icon" />
                                     </button>
                                 </div>
@@ -183,7 +198,7 @@ function UserList() {
                                     <h4>
                                         status
                                     </h4>
-                                    <button>
+                                    <button className="filter__button">
                                         <img src="/filter-icon.png" alt="status filtere icon" />
                                     </button>
                                 </div>
@@ -213,7 +228,7 @@ function UserList() {
                                 <span>{formatDate(userlist.join_date)}</span>
                             </td>
                             <td>
-                                <span>{userlist.status}</span>
+                                <span className={statusStyle(userlist.status)}>{userlist.status}</span>
                             </td>
                             <td>
                                 <button>
@@ -225,6 +240,36 @@ function UserList() {
                 )) : ""}
                 </tbody>
                 </table>
+            </article>
+            <article>
+                <div>
+
+                </div>
+                <div>
+                    <ul>
+                        {remainingPages ? Array.from({length: remainingPages}, (_, i) => i).map((pages) => {
+                            if (pages > 2 && pages !== remainingPages - 1) {
+                                return (
+                                    <></>
+                                )
+                            } else {
+                                if (pages === remainingPages - 1) {
+                                    return (
+                                        <div style={{display: "flex",flexDirection: "row"}}>
+                                            <button>...</button>
+                                            <button>{pages}</button>
+                                        </div>
+                                    )
+                                }
+                                return (
+                                    <button>{pages}</button>
+                                )
+                            }
+                        }) : (
+                            <button>1</button>
+                        )}
+                    </ul>
+                </div>
             </article>
         </section>
     )

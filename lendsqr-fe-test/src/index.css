@@ -75,6 +75,14 @@
     --color-cyan-dark: #1ab5b5;
     --color-white-text: #FFFFFF;
     --color-input: #545F7D;
+    --color-pending: #e9b30042;
+    --color-pending-text: #e9b300;
+    --color-blacklisted: #e4033b4e;
+    --color-blacklisted-text: #e4033b;
+    --color-inactive: #545f7d2d;
+    --color-inactive-text: #545f7d;
+    --color-active: #39cd633c;
+    --color-active-text: #39cd63;
 }
 
 *,*::before,*::after {
@@ -107,12 +115,16 @@ img {
 }
 
 table {
+  display: table;
   table-layout: fixed;
   border-collapse: collapse;
   border-spacing: 0;
   width: 100%;
+  min-width: 900px;
   max-width: 1000px;
-  border: 1px solid #ddd;
+  border: 1px solid var(--color-grey-fade);
+  background-color: var(--color-white-text);
+  overflow-x: visible;
 }
 
 tbody {
