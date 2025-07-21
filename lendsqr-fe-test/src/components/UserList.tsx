@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
-import { useLayoutEffect, useState } from "react"
+import moment from "moment"
+import React, { useLayoutEffect, useState } from "react"
 
 type StatusType = "inactive" | "pending" | "blacklisted" | "active"
 
@@ -13,7 +14,7 @@ interface EducationType {
 }
 
 interface GuarantorType {
-    fullname: string 
+    ftrlname: string 
     phone_number: string 
     email: string 
     relationship: string
@@ -34,7 +35,7 @@ interface UserListType {
     phone_number: string 
     join_date: string 
     status: StatusType 
-    fullname: string 
+    ftrlname: string 
     bvn: string 
     gender: string 
     marital_status: string 
@@ -53,7 +54,7 @@ function UserList() {
 
     const [pages, setPages] = useState<number>(9)
     const [remainingPages, setRemainingPages] = useState<number>(0)
-    const [users, setUsers] = useState<UserListType[] | null[]>([])
+    const [users, setUsers] = useState<UserListType[]>([])
     const [refresh, setRefresh] = useState(true)
 
     const { data, isLoadingError, error, isLoading } = useQuery({
@@ -80,135 +81,150 @@ function UserList() {
         }
     }, [data, error, isLoading, isLoadingError, pages, refresh])
 
+    function formatDate(date: string):string {
+        return moment(date).format("LLL")
+    }
+
     console.log("users", users)
 
     return (
-        <section className="userlist">
-            <article className="userlist__container">
-                <h3 className="userlist__container-title">
+        <section>
+            <article>
+                <h3>
                     users
                 </h3>
-                <div className="userlist__container-info">
-                    <div className="info__item">
-                        <img className="info__item-image" src="/users-icon.png" alt="users icon" />
-                        <strong className="info__item-title">
+                <div>
+                    <div>
+                        <img src="/users-icon.png" alt="users icon" />
+                        <strong>
                             users
                         </strong>
-                        <p className="info__item-stat">2,453</p>
+                        <p>2,453</p>
                     </div>
-                    <div className="info__item">
-                        <img className="info__item-image" src="/active-users-icon.png" alt="active users icon" />
-                        <strong className="info__item-title">
+                    <div>
+                        <img src="/active-users-icon.png" alt="active users icon" />
+                        <strong>
                             active users
                         </strong>
-                        <p className="info__item-stat">2,453</p>
+                        <p>2,453</p>
                     </div>
-                    <div className="info__item">
-                        <img className="info__item-image" src="/users-with-loans-icon.png" alt="users with loans icon" />
-                        <strong className="info__item-title">
+                    <div>
+                        <img src="/users-with-loans-icon.png" alt="users with loans icon" />
+                        <strong>
                             users with loans
                         </strong>
-                        <p className="info__item-stat">12,453</p>
+                        <p>12,453</p>
                     </div>
-                    <div className="info__item">
-                        <img className="info__item-image" src="/users-with-savings-icon.png" alt="users with savings icon" />
-                        <strong className="info__item-title">
+                    <div>
+                        <img src="/users-with-savings-icon.png" alt="users with savings icon" />
+                        <strong>
                             users with savings
                         </strong>
-                        <p className="info__item-stat">102,453</p>
+                        <p>102,453</p>
                     </div>
                 </div>
             </article>
-            <article className="userlist__table">
-                <div className="userlist__table-heading">
-                    <div className="heading">
-                        <h4 className="heading__title">
-                            organizations
-                        </h4>
-                        <button className="heading__filter-button">
-                            <img src="/filter-icon.png" alt="organization filter icon" className="heading__icon" />
-                        </button>
-                    </div>
-                    <div className="heading">
-                        <h4 className="heading__title">
-                            username
-                        </h4>
-                        <button className="heading__filter-button">
-                            <img src="/filter-icon.png" alt="username filter icon" className="heading__icon" />
-                        </button>
-                    </div>
-                    <div className="heading">
-                        <h4 className="heading__title">email</h4>
-                        <button className="heading__filter-button">
-                            <img src="/filter-icon.png" alt="email filter icon" className="heading__icon" />
-                        </button>
-                    </div>
-                    <div className="heading">
-                        <h4 className="heading__title">
-                            phone number
-                        </h4>
-                        <button className="heading__filter-button">
-                            <img src="/filter-icon.png" alt="phone number filter icon" className="heading__icon" />
-                        </button>
-                    </div>
-                    <div className="heading">
-                        <h4 className="heading__title">
-                            date joined
-                        </h4>
-                        <button className="heading__filter-button">
-                            <img src="/filter-icon.png" alt="date joined filter icon" className="heading__icon" />
-                        </button>
-                    </div>
-                    <div className="heading">
-                        <h4 className="heading__title">
-                            status
-                        </h4>
-                        <button className="heading__filter-button">
-                            <img src="/filter-icon.png" alt="status filtere icon" className="heading__icon" />
-                        </button>
-                    </div>
-                </div>
-                {users.length > 0 ? users.map((userlist: UserListType) => (
-                    <div className="userlist__table-data" key={userlist.non_zero_index}>
-                        <ul className="data__container">
-                            <li className="data__container-item">
+            <article>
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="row">
+                                <div>
+                                    <h4>
+                                        organizations
+                                    </h4>
+                                    <button>
+                                        <img src="/filter-icon.png" alt="organization filter icon" />
+                                    </button>
+                                </div>
+                            </th>
+                            <th>
+                                <div>
+                                    <h4>
+                                        username
+                                    </h4>
+                                    <button>
+                                        <img src="/filter-icon.png" alt="username filter icon" />
+                                    </button>
+                                </div>
+                            </th>
+                            <th>
+                                <div>
+                                    <h4>
+                                        email
+                                    </h4>
+                                    <button>
+                                        <img src="/filter-icon.png" alt="email filter icon" />
+                                    </button>
+                                </div>
+                            </th>
+                            <th>
+                                <div>
+                                    <h4>
+                                        phone number
+                                    </h4>
+                                    <button>
+                                        <img src="/filter-icon.png" alt="phone number filter icon" />
+                                    </button>
+                                </div>
+                            </th>
+                            <th>
+                                <div>
+                                    <h4>
+                                        date joined
+                                    </h4>
+                                    <button>
+                                        <img src="/filter-icon.png" alt="date joined filter icon" />
+                                    </button>
+                                </div>
+                            </th>
+                            <th>
+                                <div>
+                                    <h4>
+                                        status
+                                    </h4>
+                                    <button>
+                                        <img src="/filter-icon.png" alt="status filtere icon" />
+                                    </button>
+                                </div>
+                            </th>
+                            <th>
+
+                            </th>
+                        </tr>
+                    </thead>
+                <tbody>
+                {users?.length > 0 ? users.map((userlist: UserListType) => (
+                    <React.Fragment key={userlist.non_zero_index}>
+                        <tr>
+                            <td>
                                 <span>{userlist.organization}</span>
-                            </li>
-                        </ul>
-                        <ul className="data__container">
-                            <li className="data__container-item">
+                            </td>
+                            <td>
                                 <span>{userlist.username}</span>
-                            </li>
-                        </ul>
-                        <ul className="data__container">
-                            <li className="data__container-item">
+                            </td>
+                            <td>
                                 <span>{userlist.email}</span>
-                            </li>
-                        </ul>
-                        <ul className="data__container">
-                            <li className="data__container-item">
+                            </td>
+                            <td>
                                 <span>{userlist.phone_number}</span>
-                            </li>
-                        </ul>
-                        <ul className="data__container">
-                            <li className="data__container-item">
-                                <span>{userlist.join_date}</span>
-                            </li>
-                        </ul>
-                        <ul className="data__container">
-                            <li className="data__container-item">
+                            </td>
+                            <td>
+                                <span>{formatDate(userlist.join_date)}</span>
+                            </td>
+                            <td>
                                 <span>{userlist.status}</span>
-                            </li>
-                        </ul>
-                        <ul className="data__container">
-                            <li className="data__container-item">
-                                <button className="more__settings">
+                            </td>
+                            <td>
+                                <button>
                                     <img src="/more-icon.png" alt="more settings icon" />
                                 </button>
-                            </li>
-                        </ul>
-                    </div>
+                            </td>
+                        </tr>
+                    </React.Fragment>
                 )) : ""}
+                </tbody>
+                </table>
             </article>
         </section>
     )

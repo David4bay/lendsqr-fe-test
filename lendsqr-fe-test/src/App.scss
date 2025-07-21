@@ -457,7 +457,6 @@
     min-height: 100%;
     background-color: #a3a3a320;
     padding: 55px;
-    overflow: visible;
 }
 
 .userlist__container {
@@ -508,6 +507,11 @@
 
 // userlist table heading - with filter
 
+.userlist__table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
 .userlist__table-heading {
     display: flex;
     flex-direction: row;
@@ -519,18 +523,19 @@
 .heading {
     display: flex;
     flex-direction: row;
-    padding: 20px;
-    gap: 30px;
+    white-space: nowrap;
 }
 
 .heading__filter-button, .more__settings {
-    background-color: var(--color-white-text);
-    border: none;
-    width: fit-content;
 
-    &:hover {
-        cursor: pointer;
-    }
+}
+
+.data__container {
+    border-spacing: 0;
+}
+
+.data__container-item {
+    border-spacing: 0;
 }
 
 @media screen and (min-width: 701px) and (max-width: 1399px) {

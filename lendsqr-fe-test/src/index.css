@@ -69,6 +69,7 @@
     --work-sans-regular: "WorkSans Regular", sans-serif;
     --color-blue-text: #213F7D;
     --color-grey-text: #545F7D;
+    --color-grey-fade: #545f7d31;
     --color-cyan-text: #39CDCC;
     --color-cyan-fade: #39CDCCCC;
     --color-cyan-dark: #1ab5b5;
@@ -80,6 +81,10 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+}
+
+html {
+  width: 100%;
 }
 
 body {
@@ -99,4 +104,60 @@ img {
   display: flex;
   align-items: flex-start;
   object-fit: contain;
+}
+
+table {
+  table-layout: fixed;
+  border-collapse: collapse;
+  border-spacing: 0;
+  width: 100%;
+  max-width: 1000px;
+  border: 1px solid #ddd;
+}
+
+tbody {
+  box-shadow: 0 0 1px 0 var(--color-grey-text);
+  & > tr > td {
+    border-bottom: 1px outset var(--color-grey-fade);
+  }
+}
+
+thead {
+  width: 100%;
+}
+
+th, td {
+  text-align: left;
+  /* padding: 20px; */
+  padding: 20px 0 20px 20px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+th {
+  white-space: nowrap;
+}
+
+td {
+  vertical-align: top;
+  color: var(--color-grey-text);
+}
+
+td button, th button {
+  background-color: var(--color-white-text);
+  border: none;
+}
+
+th div {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  & h4 {
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    font-weight: 600;
+    color: var(--color-grey-text);
+  }
 }
