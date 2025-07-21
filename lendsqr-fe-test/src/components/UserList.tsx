@@ -72,7 +72,7 @@ function UserList() {
             if (pages < 9) {
                 setPages(9)
             }
-            const originalDataLength = data.length 
+            // const originalDataLength = data.length 
             // const pagesLeft = (originalDataLength - pages)
             setRemainingPages(data.length)
             data.length = pages
@@ -257,12 +257,12 @@ function UserList() {
                                     return (
                                         <div style={{display: "flex",flexDirection: "row"}}>
                                             <button>...</button>
-                                            <button>{pages}</button>
+                                            <button>{pages + 1}</button>
                                         </div>
                                     )
                                 }
                                 return (
-                                    <button>{pages}</button>
+                                    <button>{pages + 1}</button>
                                 )
                             }
                         }) : (
