@@ -42,7 +42,7 @@ function Login() {
 
         if (loggedUser) {
             setLoading(false)
-            navigate("/user")
+            navigate("/users")
             return
         }
         

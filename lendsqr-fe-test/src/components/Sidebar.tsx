@@ -34,7 +34,7 @@ export default function Sidebar() {
                 <ul className="options">
                     <li className="options__item selected">
                         <div className="options__item-content">
-                            <img src="user-friends_1.png" alt="users logo" />
+                            <img src="/user-friends_1.png" alt="users logo" />
                             <p>users</p>
                         </div>
                     </li>
