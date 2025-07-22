@@ -1,9 +1,10 @@
-import { useNavigate } from "react-router-dom"
+import { Route, Routes, useNavigate } from "react-router-dom"
 import { useAuth } from "../context/UserContext"
 import Nav from "./Nav"
 import Sidebar from "./Sidebar"
 import { Helmet } from "react-helmet"
 import UserList from "./UserList"
+import UserProfile from "./UserProfile"
 
 interface UserProp {
     user: {
@@ -33,7 +34,10 @@ function Dashboard() {
         <Nav />
         <main className="main">
         <Sidebar />
-        <UserList />
+            <Routes>
+                <Route path="/" element={<UserList />} />
+                <Route path=":id" element={<UserProfile />} />
+            </Routes>
         </main>
         </>
     )

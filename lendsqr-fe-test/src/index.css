@@ -83,6 +83,7 @@
     --color-inactive-text: #545f7d;
     --color-active: #39cd633c;
     --color-active-text: #39cd63;
+    --color-black: #000000;
 }
 
 *,*::before,*::after {
@@ -119,12 +120,10 @@ table {
   table-layout: fixed;
   border-collapse: collapse;
   border-spacing: 0;
-  width: 100%;
-  min-width: 900px;
-  max-width: 1000px;
   border: 1px solid var(--color-grey-fade);
   background-color: var(--color-white-text);
-  overflow-x: visible;
+  width: 100%;
+  /* max-width: 1000px; */
 }
 
 tbody {
@@ -135,25 +134,25 @@ tbody {
 }
 
 thead {
+  display: table-header-group;
+  vertical-align: middle;
   width: 100%;
 }
 
-th, td {
-  text-align: left;
+td {
+  /* text-align: left; */
   /* padding: 20px; */
-  padding: 20px 0 20px 20px;
+  padding: 20px;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
+  vertical-align: top;
+  color: var(--color-grey-text);
 }
 
 th {
   white-space: nowrap;
-}
-
-td {
-  vertical-align: top;
-  color: var(--color-grey-text);
+  padding: 20px;
 }
 
 td button, th button {
@@ -164,12 +163,19 @@ td button, th button {
 th div {
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
+  width: fit-content;
+  gap: 20px;
 
   & h4 {
     text-transform: uppercase;
     font-size: 0.8rem;
     font-weight: 600;
     color: var(--color-grey-text);
+    vertical-align: middle;
   }
+}
+
+a {
+  text-decoration: none;
+  color: var(--color-grey-text);
 }

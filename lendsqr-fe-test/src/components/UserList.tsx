@@ -1,6 +1,8 @@
 import { useQuery } from "@tanstack/react-query"
-import moment from "moment"
-import React, { useLayoutEffect, useState } from "react"
+import { useEffect, useState } from "react"
+import UserListHeader from "./UserListHeader"
+import UserListPages from "./UserListPages"
+import UserListNav from "./UserListNav"
 
 type StatusType = "inactive" | "pending" | "blacklisted" | "active"
 
@@ -20,7 +22,7 @@ interface GuarantorType {
     relationship: string
 }
 
-interface UserListType {
+export interface UserListType {
     _id: string 
     index: number 
     non_zero_index: number 
@@ -56,221 +58,42 @@ function UserList() {
     const [remainingPages, setRemainingPages] = useState<number>(0)
     const [users, setUsers] = useState<UserListType[]>([])
     const [refresh, setRefresh] = useState(true)
+    const [currentPage, setCurrentPage] = useState(0)
 
-    const { data, isLoadingError, error, isLoading } = useQuery({
+    const { data, isLoadingError, error, isLoading, refetch } = useQuery({
         queryKey: ["user_list"],
         queryFn: async () => await fetch("/generated.json").then((response) => response.json())
     })
 
-    console.log("data", data as UserListType[])
+    // console.log("data", data as UserListType[])
 
-    useLayoutEffect(() => {
+    useEffect(() => {
         if (data?.length > 0 && !isLoading && !isLoadingError && !error && refresh) {
-            if (pages > data.length) {
-                setPages(data.length)
-            }
-            if (pages < 9) {
+            console.log("currentPage", currentPage)
+            if (currentPage < 9) {
                 setPages(9)
             }
+
+            const nextPage = currentPage + currentPage
+            const pageAvailable = nextPage <= 9 ? 9 : nextPage
+            console.log("pageAvailable", pageAvailable)
+            const viewedPages = data.slice(currentPage, pageAvailable + 1)
+            console.log("viewedPages", viewedPages)
             // const originalDataLength = data.length 
             // const pagesLeft = (originalDataLength - pages)
             setRemainingPages(data.length)
-            data.length = pages
-            setUsers(data)
+            setUsers(viewedPages)
             setRefresh(false)
         }
-    }, [data, error, isLoading, isLoadingError, pages, refresh])
-
-    function formatDate(date: string):string {
-        return moment(date).format("LLL")
-    }
-
-    function statusStyle(status: string):string {
-        switch(true) {
-            case status === "inactive":
-                return "inactive"
-            case status === "active":
-                return "active"
-            case status === "blacklisted":
-                return "blacklisted"
-            case status === "pending":
-                return "pending"
-            default:
-                return ""
-        }
-    }
+    }, [currentPage, data, error, isLoading, isLoadingError, pages, refresh])
 
     // console.log("users", users)
 
     return (
         <section className="userlist">
-            <article className="userlist__container">
-                <h3 className="userlist__container-title">
-                    users
-                </h3>
-                <div className="userlist__container-info">
-                    <div className="info__item">
-                        <img className="info__item-image" src="/users-icon.png" alt="users icon" />
-                        <strong className="info__item-title">
-                            users
-                        </strong>
-                        <p className="info__item-stat">2,453</p>
-                    </div>
-                    <div className="info__item">
-                        <img className="info__item-image" src="/active-users-icon.png" alt="active users icon" />
-                        <strong className="info__item-title">
-                            active users
-                        </strong>
-                        <p className="info__item-stat">2,453</p>
-                    </div>
-                    <div className="info__item">
-                        <img className="info__item-image" src="/users-with-loans-icon.png" alt="users with loans icon" />
-                        <strong className="info__item-title">
-                            users with loans
-                        </strong>
-                        <p className="info__item-stat">12,453</p>
-                    </div>
-                    <div className="info__item">
-                        <img className="info__item-image" src="/users-with-savings-icon.png" alt="users with savings icon" />
-                        <strong className="info__item-title">
-                            users with savings
-                        </strong>
-                        <p className="info__item-stat">102,453</p>
-                    </div>
-                </div>
-            </article>
-            <article>
-                <table>
-                    <thead>
-                        <tr>
-                            <th scope="row">
-                                <div>
-                                    <h4>
-                                        organizations
-                                    </h4>
-                                    <button className="filter__button">
-                                        <img src="/filter-icon.png" alt="organization filter icon" />
-                                    </button>
-                                </div>
-                            </th>
-                            <th>
-                                <div>
-                                    <h4>
-                                        username
-                                    </h4>
-                                    <button className="filter__button">
-                                        <img src="/filter-icon.png" alt="username filter icon" />
-                                    </button>
-                                </div>
-                            </th>
-                            <th>
-                                <div>
-                                    <h4>
-                                        email
-                                    </h4>
-                                    <button className="filter__button">
-                                        <img src="/filter-icon.png" alt="email filter icon" />
-                                    </button>
-                                </div>
-                            </th>
-                            <th>
-                                <div>
-                                    <h4>
-                                        phone number
-                                    </h4>
-                                    <button className="filter__button">
-                                        <img src="/filter-icon.png" alt="phone number filter icon" />
-                                    </button>
-                                </div>
-                            </th>
-                            <th>
-                                <div>
-                                    <h4>
-                                        date joined
-                                    </h4>
-                                    <button className="filter__button">
-                                        <img src="/filter-icon.png" alt="date joined filter icon" />
-                                    </button>
-                                </div>
-                            </th>
-                            <th>
-                                <div>
-                                    <h4>
-                                        status
-                                    </h4>
-                                    <button className="filter__button">
-                                        <img src="/filter-icon.png" alt="status filtere icon" />
-                                    </button>
-                                </div>
-                            </th>
-                            <th>
-
-                            </th>
-                        </tr>
-                    </thead>
-                <tbody>
-                {users?.length > 0 ? users.map((userlist: UserListType) => (
-                    <React.Fragment key={userlist.non_zero_index}>
-                        <tr>
-                            <td>
-                                <span>{userlist.organization}</span>
-                            </td>
-                            <td>
-                                <span>{userlist.username}</span>
-                            </td>
-                            <td>
-                                <span>{userlist.email}</span>
-                            </td>
-                            <td>
-                                <span>{userlist.phone_number}</span>
-                            </td>
-                            <td>
-                                <span>{formatDate(userlist.join_date)}</span>
-                            </td>
-                            <td>
-                                <span className={statusStyle(userlist.status)}>{userlist.status}</span>
-                            </td>
-                            <td>
-                                <button>
-                                    <img src="/more-icon.png" alt="more settings icon" />
-                                </button>
-                            </td>
-                        </tr>
-                    </React.Fragment>
-                )) : ""}
-                </tbody>
-                </table>
-            </article>
-            <article>
-                <div>
-
-                </div>
-                <div>
-                    <ul>
-                        {remainingPages ? Array.from({length: remainingPages}, (_, i) => i).map((pages) => {
-                            if (pages > 2 && pages !== remainingPages - 1) {
-                                return (
-                                    <></>
-                                )
-                            } else {
-                                if (pages === remainingPages - 1) {
-                                    return (
-                                        <div style={{display: "flex",flexDirection: "row"}}>
-                                            <button>...</button>
-                                            <button>{pages + 1}</button>
-                                        </div>
-                                    )
-                                }
-                                return (
-                                    <button>{pages + 1}</button>
-                                )
-                            }
-                        }) : (
-                            <button>1</button>
-                        )}
-                    </ul>
-                </div>
-            </article>
+            <UserListHeader />
+            <UserListNav users={users} />
+            <UserListPages refetch={refetch} setCurrentPage={setCurrentPage} remainingPages={remainingPages} />
         </section>
     )
 }

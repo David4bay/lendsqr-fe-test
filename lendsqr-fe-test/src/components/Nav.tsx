@@ -25,6 +25,7 @@ function Nav() {
                     <span className="profile__container">
                         <img className="profile__container-image" src="/profile_image.png" alt="profile picture" />
                     </span>
+                    <a href="#" className="profile__name">adedeji</a>
                     <img className="profile__arrow" src="/profile_picture_arrow.png" alt="profile picture arrow" />
                 </li>
             </ul>
