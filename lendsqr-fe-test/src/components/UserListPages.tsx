@@ -38,23 +38,21 @@ function UserListPages(props: PagesPropType) {
                 </div>
                 <div>
                     <ul className="page__style">
-                        {remainingPages ? listOfPages.map((pages) => {
-                            if (pages > 2 && pages !== remainingPages - 1) {
-                                return <React.Fragment>{null}</React.Fragment>
-                            } else {
+                        {remainingPages ? listOfPages.filter((pages) => pages < 3).map((pages) => {
                                 if (pages === remainingPages - 1) {
                                     return (
                                         <div className="page__style" key={pages} style={{display: "flex",flexDirection: "row"}}>
                                             <button className="page__style-button">...</button>
-                                            <button className="page__style-button">{pages + 1}</button>
+                                            <button className="page__style-button">{remainingPages}</button>
                                         </div>
                                     )
+                                } else {
+                                    return (
+                                        <button key={pages} className={pages ===  0 ? "page__style-button-inactive" : "page__style-button"}  disabled={pages === 0}>{pages + 1}</button>
+                                    )
                                 }
-                                return (
-                                    <button className={pages ===  0 ? "page__style-button-inactive" : "page__style-button"}  disabled={pages === 0}>{pages + 1}</button>
-                                )
                             }
-                        }) : (
+                        ) : (
                         <button>1</button>
                     )}
                 </ul>
