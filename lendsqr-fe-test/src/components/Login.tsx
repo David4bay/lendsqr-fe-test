@@ -56,11 +56,11 @@ function Login() {
         localStorage.setItem("loggedUser", loggedUser)
         setLoading(false)
         setError(false)
-        navigate("/user")
+        navigate("/users")
     }
 
     if (userLoggedStatus.user) {
-        navigate("/user")
+        navigate("/users")
         return
     }
 
