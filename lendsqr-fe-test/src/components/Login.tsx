@@ -1,5 +1,6 @@
-/* eslint-disable react-hooks/rules-of-hooks */
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable prefer-const */
+
 import { useEffect, useState, type FormEvent, type SyntheticEvent } from "react"
 import { useNavigate } from "react-router-dom"
 import { useAuth } from "../context/UserContext"
@@ -35,16 +36,11 @@ function Login() {
         const password = formData.get("password") as string 
 
         if (!email || !password) {
+            // the loading state will error in 4 seconds
             return
         }
         
-        let loggedUser = localStorage.getItem("loggedUser")
-
-        if (loggedUser) {
-            setLoading(false)
-            navigate("/users")
-            return
-        }
+        let loggedUser = localStorage.loggedUser
         
         /* Note - The password is not sent to any servers and is for 
         a simple project, so it's saved to localStorage
@@ -53,16 +49,16 @@ function Login() {
             user: { username: email, key: password }
         })
 
-        localStorage.setItem("loggedUser", loggedUser)
         setLoading(false)
         setError(false)
-        navigate("/users")
     }
 
-    if (userLoggedStatus.user) {
-        navigate("/users")
-        return
-    }
+    
+    useEffect(() => {       
+        if (userLoggedStatus.user) {
+            navigate("/users")
+        }
+    }, [navigate, userLoggedStatus.user])
 
     // raise error message if unable to sign in after 4 seconds
     useEffect(() => {

@@ -1,9 +1,19 @@
 import type { UserListType } from "./UserList"
 import UserListBody from "./UserListBody"
 
-function UserListNav(props: { users: UserListType[] }) {
+interface UserListTypes {
+    users: UserListType[]
+    isLoading: boolean 
+    error: Error | boolean | null
+}
 
-    const { users } = props
+function UserListNav(props: UserListTypes) {
+
+    const { users, isLoading, error } = props
+
+    if (isLoading) return <p>Loading...</p>
+
+    if (error) return <p>Something went wrong.</p>
 
     return (
         <article className="table__container">
@@ -72,7 +82,9 @@ function UserListNav(props: { users: UserListType[] }) {
                             </th>
                         </tr>
                     </thead>
-                    <UserListBody users={users} /> 
+                    <tbody>
+                        <UserListBody users={users} /> 
+                    </tbody>
                 </table>
             </article>
     )

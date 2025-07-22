@@ -5,6 +5,7 @@ import Sidebar from "./Sidebar"
 import { Helmet } from "react-helmet"
 import UserList from "./UserList"
 import UserProfile from "./UserProfile"
+import { useEffect } from "react"
 
 interface UserProp {
     user: {
@@ -19,10 +20,13 @@ function Dashboard() {
     const userLoggedStatus = useAuth() as UserProp
 
     console.log("userLoggedStatus", userLoggedStatus)
+
+    useEffect(() => {
+        if (userLoggedStatus.user === null) {
+            navigate("/")
+        }
+    }, [navigate, userLoggedStatus.user])
     
-    if (userLoggedStatus.user === null) {
-        navigate("/")
-    }
 
     return (
         <>

@@ -21,12 +21,12 @@ function UserListBody(props: { users: UserListType[] }) {
             case status === "pending":
                 return "pending"
             default:
-                return ""
+                return "unavailable"
         }
     }
 
     return (
-         <tbody>
+         <>
                 {users?.length > 0 ? users.map((userlist: UserListType) => (
                     <tr key={userlist.non_zero_index}>
                             <td>
@@ -74,7 +74,7 @@ function UserListBody(props: { users: UserListType[] }) {
                             </td>
                     </tr>
                 )) : ""}
-                </tbody>
+            </>
     )
 }
 

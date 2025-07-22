@@ -1,60 +1,71 @@
 import type { SyntheticEvent, Dispatch, SetStateAction } from "react"
-import React from "react"
+import type { UserListType } from "./UserList"
 
 interface PagesPropType {
     remainingPages: number
     setCurrentPage: Dispatch<SetStateAction<number>>
-    refetch: () => void
+    setUsers: Dispatch<SetStateAction<UserListType[]>>
+    data: UserListType[]
+    currentPage: number
+    isLoading: boolean
+    error: Error | null | boolean
+    setRefresh: Dispatch<SetStateAction<boolean>>
 }
 
 function UserListPages(props: PagesPropType) {
 
-    const { remainingPages, setCurrentPage, refetch } = props
+    const { remainingPages, setCurrentPage, currentPage, isLoading, error, setRefresh } = props
 
     /*
     This makes a list of pages starting from the first 3 pages
     to the last or just returns a single page.
     */
 
-    function handleViews(e: SyntheticEvent<HTMLSelectElement>) {
+    if (isLoading) return <p>Loading...</p>
+
+    if (error) return <p>Something went wrong.</p>
+
+    function handleViews(e: SyntheticEvent<HTMLButtonElement>) {
         const target = e.target as HTMLSelectElement
-        setCurrentPage(Number(target.value))
-        refetch()
+        console.log("page number", target.innerText)
+        setCurrentPage(Number(target.innerText))
+        setRefresh(true)
     }
 
-    const listOfPages = Array.from({length: remainingPages}, (_, i) => i)
+    const listOfPages = Array.from({length: Math.floor(currentPage + 3)}, (_, i) => i + 1).slice(currentPage - 1)
 
     return (
          <article className="userlist__floor">
                 <div className="userlist__floor-container">
                     <span>showing</span>
-                    <select className="view__rows" onChange={handleViews}>
-                        <option value="9">10</option>
-                        <option value="10">20</option>
-                        <option value="12">50</option>
-                        <option value="20">100</option>
+                    <select className="view__rows" disabled>
+                        <option value="9">9</option>
                     </select>
                     <span>out of {remainingPages}</span>
                 </div>
                 <div>
                     <ul className="page__style">
-                        {remainingPages ? listOfPages.filter((pages) => pages < 3).map((pages) => {
-                                if (pages === remainingPages - 1) {
+                        {listOfPages.map((pages) => {
+                                if (pages === listOfPages[listOfPages.length - 1]) {
                                     return (
                                         <div className="page__style" key={pages} style={{display: "flex",flexDirection: "row"}}>
-                                            <button className="page__style-button">...</button>
-                                            <button className="page__style-button">{remainingPages}</button>
+                                            <button className="page__style-button" disabled>...</button>
+                                            <button onClick={handleViews} className="page__style-button">{remainingPages}</button>
                                         </div>
                                     )
                                 } else {
                                     return (
-                                        <button key={pages} className={pages ===  0 ? "page__style-button-inactive" : "page__style-button"}  disabled={pages === 0}>{pages + 1}</button>
+                                        <button 
+                                        key={pages} 
+                                        onClick={handleViews}
+                                        className={pages ===  currentPage ? "page__style-button-inactive" : "page__style-button"}  
+                                        disabled={pages === currentPage}>
+                                            {pages}
+                                        </button>
                                     )
                                 }
                             }
-                        ) : (
-                        <button>1</button>
-                    )}
+                        )}
                 </ul>
             </div>
         </article>

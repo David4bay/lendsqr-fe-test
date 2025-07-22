@@ -58,9 +58,9 @@ function UserList() {
     const [remainingPages, setRemainingPages] = useState<number>(0)
     const [users, setUsers] = useState<UserListType[]>([])
     const [refresh, setRefresh] = useState(true)
-    const [currentPage, setCurrentPage] = useState(0)
+    const [currentPage, setCurrentPage] = useState<number>(1)
 
-    const { data, isLoadingError, error, isLoading, refetch } = useQuery({
+    const { data, isLoadingError, error, isLoading } = useQuery({
         queryKey: ["user_list"],
         queryFn: async () => await fetch("/generated.json").then((response) => response.json())
     })
@@ -70,30 +70,46 @@ function UserList() {
     useEffect(() => {
         if (data?.length > 0 && !isLoading && !isLoadingError && !error && refresh) {
             console.log("currentPage", currentPage)
-            if (currentPage < 9) {
+            
+            if (currentPage < 1) {
+                setCurrentPage(1)
                 setPages(9)
             }
 
-            const nextPage = currentPage + currentPage
-            const pageAvailable = nextPage <= 9 ? 9 : nextPage
-            console.log("pageAvailable", pageAvailable)
-            const viewedPages = data.slice(currentPage, pageAvailable + 1)
-            console.log("viewedPages", viewedPages)
-            // const originalDataLength = data.length 
-            // const pagesLeft = (originalDataLength - pages)
-            setRemainingPages(data.length)
-            setUsers(viewedPages)
+            const pagesLeft = Math.floor(data.length / pages)
+            setRemainingPages(pagesLeft)
+            const userListLength = Math.floor(currentPage * pages)
+            const dataToLoad = data.slice()
+            const constructedUsers = dataToLoad.reduce((acc: UserListType[], userInfo: UserListType, i: number) => i >= userListLength - pages && i <= userListLength ? acc = [...acc, userInfo] : acc ,[])
+            setUsers(constructedUsers)
             setRefresh(false)
+            // refetch()
         }
-    }, [currentPage, data, error, isLoading, isLoadingError, pages, refresh])
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [currentPage, error, isLoading, isLoadingError, pages, refresh])
 
     // console.log("users", users)
+
+    
 
     return (
         <section className="userlist">
             <UserListHeader />
-            <UserListNav users={users} />
-            <UserListPages refetch={refetch} setCurrentPage={setCurrentPage} remainingPages={remainingPages} />
+            <UserListNav
+            isLoading={isLoading}
+            error={error} 
+            users={users} 
+            />
+            <UserListPages 
+            data={data}
+            setUsers={setUsers}
+            isLoading={isLoading}
+            error={error}
+            setCurrentPage={setCurrentPage} 
+            remainingPages={remainingPages}
+            currentPage={currentPage}
+            setRefresh={setRefresh}
+            />
         </section>
     )
 }

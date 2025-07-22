@@ -464,6 +464,10 @@
     padding: 55px;
 }
 
+.table__container {
+    overflow-x: scroll;
+}
+
 .userlist__container {
     display: flex;
     flex-direction: column;
@@ -557,11 +561,12 @@
 
 .userlist__floor-container {
     display: flex;
-    align-items: flex-start;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
     gap: 8px;
     font-weight: 500;
     font-size: 1rem;
-    justify-content: center;
     color: var(--color-blue-text);
 }
 
@@ -570,7 +575,6 @@
     flex-direction: row;
     gap: 10px;
     color: var(--color-grey-text);
-
 }
 
 .view__rows {
