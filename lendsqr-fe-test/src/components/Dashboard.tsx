@@ -15,7 +15,7 @@ function Dashboard() {
         console.log("userLoggedStatus", typeof userLoggedStatus)
 
         useEffect(() => {
-            if (userLoggedStatus.user === "") {
+            if (userLoggedStatus?.user === "") {
                 navigate("/")
                 return 
             }
