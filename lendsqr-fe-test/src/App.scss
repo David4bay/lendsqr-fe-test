@@ -183,9 +183,8 @@
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    width: 100%;
     height: 80px;
-    box-shadow: 0 0 13px -6px var(--color-grey-text);
+    box-shadow: 0 0 0px 0px var(--color-grey-text);
 }
 
 .nav__intro {
@@ -459,19 +458,22 @@
 
 .userlist {
     // min-width: 100%;
-    min-height: 100%;
+    min-height: 100vh;
     background-color: #a3a3a320;
     padding: 55px;
 }
 
 .table__container {
-    overflow-x: scroll;
+    overflow-x: auto;
+    min-width: 100%;
+    width: fit-content;
 }
 
 .userlist__container {
     display: flex;
     flex-direction: column;
     margin-bottom: 30px;
+    width: 1000px;
 }
 
 .userlist__container-title {
@@ -483,6 +485,8 @@
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(15rem, 18rem));
     justify-content: space-between;
+    align-items: center;
+    width: 100%;
     margin-top: 40px;
     gap: 16px;
 }

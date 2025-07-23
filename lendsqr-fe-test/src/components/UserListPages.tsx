@@ -1,5 +1,7 @@
 import type { SyntheticEvent, Dispatch, SetStateAction } from "react"
 import type { UserListType } from "./UserList"
+import LastPages from "./LastPages"
+import DynamicList from "./DynamicList"
 
 interface PagesPropType {
     remainingPages: number
@@ -45,27 +47,21 @@ function UserListPages(props: PagesPropType) {
                 </div>
                 <div>
                     <ul className="page__style">
-                        {listOfPages.map((pages) => {
-                                if (pages === listOfPages[listOfPages.length - 1]) {
-                                    return (
-                                        <div className="page__style" key={pages} style={{display: "flex",flexDirection: "row"}}>
-                                            <button className="page__style-button" disabled>...</button>
-                                            <button onClick={handleViews} className="page__style-button">{remainingPages}</button>
-                                        </div>
-                                    )
-                                } else {
-                                    return (
-                                        <button 
-                                        key={pages} 
-                                        onClick={handleViews}
-                                        className={pages ===  currentPage ? "page__style-button-inactive" : "page__style-button"}  
-                                        disabled={pages === currentPage}>
-                                            {pages}
-                                        </button>
-                                    )
-                                }
-                            }
-                        )}
+                        {currentPage >= remainingPages - 2 ?
+                    (
+                    <LastPages
+                    remainingPages={remainingPages}
+                    handleViews={handleViews}
+                    />) 
+                    :
+                    (
+                    <DynamicList
+                    listOfPages={listOfPages}
+                    handleViews={handleViews}
+                    remainingPages={remainingPages}
+                    currentPage={currentPage}
+                    />
+                    )}    
                 </ul>
             </div>
         </article>

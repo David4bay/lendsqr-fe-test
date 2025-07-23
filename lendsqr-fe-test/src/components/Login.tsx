@@ -1,22 +1,13 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable prefer-const */
+ 
+// /* eslint-disable prefer-const */
 
 import { useEffect, useState, type FormEvent, type SyntheticEvent } from "react"
 import { useNavigate } from "react-router-dom"
-import { useAuth } from "../context/UserContext"
-
-interface UserProp {
-    user: {
-        username?: string | null 
-        key?: string | null
-    }
-}
 
 function Login() {
 
     const navigate = useNavigate()
-
-    const userLoggedStatus = useAuth() as UserProp
+    // const userLoggedStatus = useAuth() as UserProp
 
     const [showPassword, setShowPassword] = useState<boolean>(false)
     const [loading, setLoading] = useState(false)
@@ -40,47 +31,46 @@ function Login() {
             return
         }
         
-        let loggedUser = localStorage.loggedUser
-        
         /* Note - The password is not sent to any servers and is for 
         a simple project, so it's saved to localStorage
         */
-       loggedUser = JSON.stringify({
+       const loggedUser = JSON.stringify({
             user: { username: email, key: password }
         })
 
-        setLoading(false)
-        setError(false)
+        localStorage.setItem("loggedUser", loggedUser)
+        navigate("/users")
+        return
     }
 
-    
-    useEffect(() => {       
-        if (userLoggedStatus.user) {
-            navigate("/users")
+    useEffect(() => {   
+        const userLoggedStatus = localStorage.loggedUser
+        if (userLoggedStatus !== "") {
+            navigate("/users/")
         }
-    }, [navigate, userLoggedStatus.user])
+    }, [navigate])
 
     // raise error message if unable to sign in after 4 seconds
     useEffect(() => {
-        let timeout
+        let timeout: number | undefined
+        if (loading) {
         timeout = setTimeout(() => {
-            if (loading) {
                 setLoading(false)
                 setError(true)
-            }
-        }, 4000)
+            }, 4000)
+        }
         return () => clearTimeout(timeout)
     }, [loading])
 
     // hide error notice after 3 seconds
     useEffect(() => {
-        let timeout
+        let timeout: number | undefined
+        if (error) {
         timeout = setTimeout(() => {
-            if (error) {
                 setError(false)
                 setLoading(false)
-            }
-        }, 3000)
+            }, 3000)
+        }
         return () => clearTimeout(timeout)
     })
 

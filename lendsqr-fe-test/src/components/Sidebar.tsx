@@ -1,14 +1,24 @@
-import type { SyntheticEvent } from "react";
-// import { useNavigate } from "react-router-dom";
+import { useEffect, type SyntheticEvent } from "react";
+import { useNavigate } from "react-router-dom";
 
 export default function Sidebar() {
 
-    // const navigate = useNavigate()
-
+    const navigate = useNavigate()
+    
     function handleLogout(e: SyntheticEvent) {
         e.preventDefault()
-        localStorage.loggedUser = null
+        localStorage.loggedUser = ""
+        return
+        navigate("/")
+        return
     }
+
+    useEffect(() => {
+        const loggedUser = localStorage.loggedUser 
+        if (loggedUser === "") {
+            navigate("/")
+        }
+    }, [navigate])
 
     return (
         <aside className="sidebar">

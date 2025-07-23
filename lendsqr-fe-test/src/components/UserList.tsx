@@ -15,8 +15,8 @@ interface EducationType {
     loan_repayment: number
 }
 
-interface GuarantorType {
-    ftrlname: string 
+export interface GuarantorType {
+    fullname: string 
     phone_number: string 
     email: string 
     relationship: string
