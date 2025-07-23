@@ -8,7 +8,6 @@ export default function Sidebar() {
     function handleLogout(e: SyntheticEvent) {
         e.preventDefault()
         localStorage.loggedUser = ""
-        return
         navigate("/")
         return
     }
