@@ -843,6 +843,10 @@
     text-transform: capitalize;
 }
 
+.stat__info-small {
+    text-transform: lowercase;
+}
+
 @media screen and (min-width: 1193px) and (max-width: 1399px) {
 
     .nav {
