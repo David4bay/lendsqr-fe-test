@@ -77,13 +77,15 @@
     --color-input: #545F7D;
     --color-pending: #e9b30042;
     --color-pending-text: #e9b300;
-    --color-blacklisted: #e4033b4e;
+    --color-blacklisted: #e4033b17;
     --color-blacklisted-text: #e4033b;
     --color-inactive: #545f7d2d;
     --color-inactive-text: #545f7d;
+    --color-user-bg: #545f7d11;
     --color-active: #39cd633c;
     --color-active-text: #39cd63;
     --color-black: #000000;
+    --color-black-faded: #000000b7;
 }
 
 *,*::before,*::after {

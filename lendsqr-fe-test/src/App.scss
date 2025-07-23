@@ -532,6 +532,7 @@
     background-color: var(--color-active);
     border-radius: 15px;
     padding: 10px 25px;
+    border: none;
 }
 
 .inactive {
@@ -553,6 +554,7 @@
     background-color: var(--color-blacklisted);
     border-radius: 15px;
     padding: 10px 25px;
+    border: none;
 }
 
 .userlist__floor {
@@ -613,6 +615,232 @@
     border: none;
     padding: 0;
     color: var(--color-black);
+}
+
+.single__user {
+    padding: 50px;
+    width: 100%;
+    background-color: var(--color-user-bg);
+}
+
+.user__action__container {
+    display: grid;
+    margin-top: 20px;
+    grid-template-columns: 1fr 1fr;
+}
+
+.navigate__text {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    align-items: center;
+    font-size: 0.95rem;
+    color: var(--color-grey-text);
+}
+
+.actions {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    justify-content: flex-end;
+}
+
+.user__action__container-title {
+    display: flex;
+    align-items: center;
+    color: var(--color-blue-text);
+    font-weight: 500;
+    font-weight: 0.95rem;
+    letter-spacing: 1px;
+}
+
+.small-blacklist {
+    width: fit-content;
+    white-space: nowrap;
+    padding: 14px;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: 1px solid;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.small-activate {
+    width: fit-content;
+    white-space: nowrap;
+    padding: 14px;
+    text-transform: uppercase;
+    background-color: transparent;
+    border: 1px solid;
+
+    &:hover {
+        cursor: pointer;
+    }
+}
+
+.top__header {
+    box-shadow: 0 0 3px 0 var(--color-inactive);
+    border-radius: 8px;
+}
+
+.header {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--color-white-text);
+    padding: 20px;
+    margin-top: 20px;
+}
+
+.header__section-avatar {
+    width: 100%;
+    max-width: 250px;
+}
+
+.avatar {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    width: fit-content;
+    border-right: 1px solid var(--color-inactive);
+    padding-right: 20px;
+}
+
+.avatar__image {
+    width: 100px;
+}
+
+.avatar__details {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.avatar__details-title {
+    color: var(--color-blue-text);
+    font-weight: 500;
+}
+
+.avatar__details-id {
+    color: var(--color-blue-text);
+    font-size: 0.85rem;
+    font-weight: 300;
+}
+
+.header__section-tier {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 170px;
+    padding: 30px;
+    gap: 5px;
+    // align-items: flex-start;
+    border-right: 1px solid var(--color-inactive);
+}
+
+.tier__title {
+    font-size: 0.84rem;
+    font-weight: 550;
+    width: 100%;
+    color: var(--color-blue-text);
+}
+
+.tier__ratings {
+    display: flex;
+    gap: 3px;
+    flex-direction: row;
+}
+
+.header__section-income {
+    display: flex;
+    flex-direction: column;
+    max-width: fit-content;
+    gap: 5px;
+    width: 100%;
+    padding: 25px;
+    color: var(--color-blue-text);
+}
+
+.income__amount {
+    font-size: 1.3rem;
+    font-weight: 600;
+}
+
+.header__nav {
+    display: flex;
+    flex-direction: row;
+    background-color: var(--color-white-text);
+    width: 100%;
+    justify-content: space-around;
+}
+
+.header__nav-item {
+    padding-bottom: 6px;
+    letter-spacing: 1px;
+    font-size: 0.94rem;
+    color: var(--color-black-faded);
+    padding-top: 10px;
+    &:first-child {
+        border-bottom: 2px solid var(--color-cyan-dark);
+    }
+}
+
+.bio {
+    margin-top: 40px;
+    background-color: var(--color-white-text);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 3px 0 var(--color-inactive);
+    width: 100%;
+    min-height: fit-content;
+}
+
+.bio__info,
+.bio__info-2,
+.bio__info-3,
+.bio__info-4 {
+    display: flex;
+    flex-direction: column;
+    height: fit-content;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+.bio__info-title {
+    color: var(--color-blue-text);
+}
+
+.bio__info-details {
+    display: flex;
+    max-width: 90%;
+    flex-wrap: wrap;
+    flex-direction: row;
+    gap: 35px;
+    justify-content: space-between;
+}
+
+.details__section-container {
+    display: flex;
+    flex-direction: column;
+    color: var(--color-grey-text);
+    justify-content: center;
+    gap: 5px;
+}
+
+.stat {
+    width: 25%;
+}
+
+.stat__title {
+    text-transform: uppercase;
+    font-size: 0.86rem;
+    font-weight: 300;
+}
+
+.stat__info {
+    text-transform: capitalize;
 }
 
 @media screen and (min-width: 1193px) and (max-width: 1399px) {
