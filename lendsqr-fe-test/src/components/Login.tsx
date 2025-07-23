@@ -45,7 +45,7 @@ function Login() {
 
     useEffect(() => {   
         const userLoggedStatus = localStorage.loggedUser
-        if (userLoggedStatus.user && userLoggedStatus !== "") {
+        if (userLoggedStatus?.user && userLoggedStatus !== "") {
             navigate("/users/")
         }
     }, [navigate])
