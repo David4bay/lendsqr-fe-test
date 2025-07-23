@@ -78,7 +78,9 @@ function UserProfile() {
                             </div>
                         </div>
                         <div className="header__section-income">
-                            <h3 className="income__amount">₦{data.monthly_income_2.toLocaleString("en-NG")}</h3>
+                            <h3 className="income__amount">{data.monthly_income_2.toLocaleString("en-NG", {
+                                style: "currency", currency: "NGN"
+                            })}</h3>
                             <p className="income__bank">
                                 {data.bank_account}/{data.bank}
                             </p>
@@ -227,7 +229,11 @@ function UserProfile() {
                         monthly income
                         </span>
                         <strong className="stat__info">
-                        ₦{data.monthly_income_1.toLocaleString("en-NG")}-₦{data.monthly_income_2.toLocaleString("en-NG")}
+                        {data.monthly_income_1.toLocaleString("en-NG", {
+                            style: "currency", currency: "NGN"
+                        })}-{data.monthly_income_2.toLocaleString("en-NG", {
+                            style: "currency", currency: "NGN"
+                        })}
                         </strong>
                     </div>
                     <div className="details__section-container stat">
@@ -235,7 +241,9 @@ function UserProfile() {
                         loan repayment
                         </span>
                         <strong className="stat__info">
-                        ₦{data.loan_repayment.toLocaleString("en-NG")}
+                        {data.loan_repayment.toLocaleString("en-NG", {
+                            style: "currency", currency: "NGN"
+                        })}
                         </strong>
                     </div>
                 </div>

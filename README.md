@@ -4,11 +4,12 @@ Welcome to my solution to the Lendsqr Lender-as-a-Service Frontend Assessment. ð
 
 ## Build Tools ðŸ§°
 
-- Typed React
+- Typed React (for type safety and inline type documentation)
 - Vite bundler/build tool
-- sass-embedded(embed SCSS files)
-- React Router
-- React Helmet
+- sass-embedded (embed SCSS files)
+- React Router (for switching views)
+- React Helmet (for changing the title of the page viewed and add metadata)
+- React Tanstack Query (for fetch requests to generated.json)
 
 ### Getting Started
 

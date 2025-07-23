@@ -127,8 +127,7 @@ table {
   border: 1px solid var(--color-grey-fade);
   background-color: var(--color-white-text);
   width: 100%;
-  max-width: 1000px;
-  margin: auto;
+  max-width: 1400px;
 }
 
 tbody {

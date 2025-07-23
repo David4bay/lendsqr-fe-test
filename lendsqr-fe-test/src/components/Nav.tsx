@@ -1,9 +1,10 @@
+import { Link } from "react-router-dom"
 
 
 function Nav() {
     
     return (
-        <nav className="nav">
+        <Link to="/" className="nav">
             <ul className="nav__intro">
                 <li className="nav__logo-container">
                     <img className="logo__container-favicon" src="/lendsqr_login_logo.png" alt="login aside logo" />
@@ -29,7 +30,7 @@ function Nav() {
                     <img className="profile__arrow" src="/profile_picture_arrow.png" alt="profile picture arrow" />
                 </li>
             </ul>
-        </nav>
+        </Link>
     )
 }
 
