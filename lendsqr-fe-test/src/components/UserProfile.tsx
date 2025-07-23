@@ -53,7 +53,7 @@ function UserProfile() {
                     <div>
                         <div>
                             <img src="" alt="" />
-                            <h3>data.username</h3>
+                            <h3>{data.username}</h3>
                             <p>{data._id}</p>
                         </div>
                     </div>
