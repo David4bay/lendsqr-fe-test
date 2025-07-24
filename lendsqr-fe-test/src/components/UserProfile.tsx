@@ -229,9 +229,9 @@ function UserProfile() {
                         monthly income
                         </span>
                         <strong className="stat__info">
-                        {data.monthly_income_1.toLocaleString("en-NG", {
+                        {data.monthly_income_2.toLocaleString("en-NG", {
                             style: "currency", currency: "NGN"
-                        })}-{data.monthly_income_2.toLocaleString("en-NG", {
+                        })}-{data.monthly_income_1.toLocaleString("en-NG", {
                             style: "currency", currency: "NGN"
                         })}
                         </strong>
