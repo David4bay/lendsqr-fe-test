@@ -15,6 +15,8 @@ function UserListNav(props: UserListTypes) {
 
     if (error) return <p>Something went wrong.</p>
 
+    const tableHeadItems = ["username", "email", "phone number", "date joined", "status"]
+
     return (
         <article className="table__container">
                 <table>
@@ -30,56 +32,18 @@ function UserListNav(props: UserListTypes) {
                                     </button>
                                 </div>
                             </th>
-                            <th>
+                            {tableHeadItems.map((tableItem) => (
+                                 <th key={tableItem}>
                                 <div>
                                     <h4>
-                                        username
+                                        {tableItem}
                                     </h4>
                                     <button className="filter__button">
-                                        <img src="/filter-icon.png" alt="username filter icon" />
+                                        <img src="/filter-icon.png" alt={`${tableItem} filter icon`} />
                                     </button>
                                 </div>
                             </th>
-                            <th>
-                                <div>
-                                    <h4>
-                                        email
-                                    </h4>
-                                    <button className="filter__button">
-                                        <img src="/filter-icon.png" alt="email filter icon" />
-                                    </button>
-                                </div>
-                            </th>
-                            <th>
-                                <div>
-                                    <h4>
-                                        phone number
-                                    </h4>
-                                    <button className="filter__button">
-                                        <img src="/filter-icon.png" alt="phone number filter icon" />
-                                    </button>
-                                </div>
-                            </th>
-                            <th>
-                                <div>
-                                    <h4>
-                                        date joined
-                                    </h4>
-                                    <button className="filter__button">
-                                        <img src="/filter-icon.png" alt="date joined filter icon" />
-                                    </button>
-                                </div>
-                            </th>
-                            <th>
-                                <div>
-                                    <h4>
-                                        status
-                                    </h4>
-                                    <button className="filter__button">
-                                        <img src="/filter-icon.png" alt="status filtere icon" />
-                                    </button>
-                                </div>
-                            </th>
+                            ))}
                         </tr>
                     </thead>
                     <tbody>

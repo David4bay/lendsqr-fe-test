@@ -3,12 +3,14 @@ import { Link } from "react-router-dom"
 function Nav() {
     
     return (
-        <Link to="/" className="nav">
+        <div className="nav">
             <ul className="nav__intro">
+                    <Link to="/">
                 <li className="nav__logo-container">
                     <img className="logo__container-favicon" src="/lendsqr_login_logo.png" alt="login aside logo" />
                     <strong className="logo__container-title">lendsqr</strong>
                 </li>
+                    </Link>
                 <li className="nav__search-container search">
                     <input className="search__input" type="search" placeholder="Search for anything" />
                     <button className="search__button">
@@ -29,7 +31,7 @@ function Nav() {
                     <img className="profile__arrow" src="/profile_picture_arrow.png" alt="profile picture arrow" />
                 </li>
             </ul>
-        </Link>
+        </div>
     )
 }
 
